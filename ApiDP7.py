@@ -11,12 +11,12 @@ app = Flask(__name__)
 # Lecture des fichiers #
 ########################
 def lecture_X_test_original():
-    X_test_original = pd.read_csv("X_test_original.csv")
+    X_test_original = pd.read_csv("Data/X_test_original.csv")
     X_test_original = X_test_original.rename(columns=str.lower)
     return X_test_original
 
 def lecture_X_test_clean():
-    X_test_clean = pd.read_csv("X_test_clean.csv")
+    X_test_clean = pd.read_csv("Data/X_test_clean.csv")
     return X_test_clean
 
 #################################################
@@ -50,10 +50,10 @@ def predict01():
     ID = int(ID)
    # Vérification que l'ID client saisi est valide
     if ID not in all_id_client:
-        number="L'identifiant que vous avez saisi n'est pas valide !"
+        #number="L'identifiant que vous avez saisi n'est pas valide !"
         prediction="NA"
-        solvabilite="NA"
-        decision="NA"
+        #solvabilite="NA"
+        #decision="NA"
     else :
         number=""
         score = y_pred_lgbm_proba_df[y_pred_lgbm_proba_df['sk_id_curr']==ID]

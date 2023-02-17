@@ -18,33 +18,33 @@ class TestApi(unittest.TestCase):
         resp = requests.get(self.URL1)
         self.assertEqual(resp.status_code,200)
         self.assertEqual(len(resp.json()),1)
-        print("Test 1 completed - Le score est bien prédit")
+        #print("Test 1 completed - Le score est bien prédit")
     #Test - Décision -
     def test_2_get_all_todo(self):
         resp = requests.get(self.URL2)
         self.assertEqual(resp.status_code,200)
         self.assertDictEqual(resp.json(),self.data)
-        print("Test 2 completed - Décision validé")
+        #print("Test 2 completed - Décision validé")
 
     #Test - Solvabilité -
     def test_3_get_all_todo(self):
         resp = requests.get(self.URL3)
         self.assertEqual(resp.status_code,200)
         self.assertDictEqual(resp.json(),self.data2)
-        print("Test 3 completed - Solvabilité prédit ")
+        #print("Test 3 completed - Solvabilité prédit ")
     #Test - Identifiant -
     def test_4_get_all_todo(self):
         resp = requests.get(self.URL4)
         self.assertEqual(resp.status_code,200)
         self.assertDictEqual(resp.json(),self.data3)
-        print("Test 4 completed - Identifiant afficher")
+        #print("Test 4 completed - Identifiant afficher")
 
 
 if __name__=="__main__":
     ###### Lancement des test #####
-    tester = TestApi()
-    print("Pour le client: num°ID = 100001")
-    tester.test_1_get_all_todos()
-    tester.test_2_get_all_todo()
-    tester.test_3_get_all_todo()
-    tester.test_4_get_all_todo()
+    #tester = TestApi()
+    #print("Pour le client: num°ID = 100001")
+    #tester.test_1_get_all_todos()
+    #tester.test_2_get_all_todo()
+    #tester.test_3_get_all_todo()
+    #tester.test_4_get_all_todo()
