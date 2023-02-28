@@ -3,4 +3,4 @@ numpy==1.23.4
 pandas==1.5.2
 gunicorn
 lightgbm
-pickle
+pickle == 4.0
