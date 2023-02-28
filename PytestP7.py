@@ -1,41 +1,63 @@
-import requests
+import pandas as pd
+import numpy as np
+import pickle
 import pytest
 
-class TestApi:
-    # Source
-    URL1 ="http://127.0.0.1:5003/predictScore?id_client=100001"
-    URL2 ="http://127.0.0.1:5003/decision?id_client=100001"
-    URL3 ="http://127.0.0.1:5003/Solvabilite?id_client=100001"
-    URL4 ="http://127.0.0.1:5003/ClientID?id_client=100001"
-    data = {'decision_text': 'accorder'}
-    data2 = {'solvabilite_text': 'solvable'}
-    data3 = {'identifiant_text': 100001}
+from app import predictScore,predictDecision,predictSolvabilite
 
-    # Test - Prédiction - Score
-    def test_prediction(self):
-        resp = requests.get(self.URL1)
-        assert resp.status_code == 200
-        assert len(resp.json()) == 1
-        #print("Test 1 completed - Le score est bien prédit")
 
-    # Test - Décision
-    def test_decision(self):
-        resp = requests.get(self.URL2)
-        assert resp.status_code == 200
-        assert resp.json() == self.data
-        #print("Test 2 completed - Décision validé")
+########################
+# Lecture des fichiers #
+########################
+def lecture_X_test_original():
+    X_test_original = pd.read_csv("Data/X_test_original.csv")
+    X_test_original = X_test_original.rename(columns=str.lower)
+    return X_test_original
 
-    # Test - Solvabilité
-    def test_solvabilite(self):
-        resp = requests.get(self.URL3)
-        assert resp.status_code == 200
-        assert resp.json() == self.data2
-        #print("Test 3 completed - Solvabilité prédit ")
+def lecture_X_test_clean():
+    X_test_clean = pd.read_csv("Data/X_test_clean.csv")
+    return X_test_clean
+#################################################
+#################################################
 
-    # Test - Identifiant
-    def test_id(self):
-        resp = requests.get(self.URL4)
-        assert resp.status_code == 200
-        assert resp.json() == self.data3
-        #print("Test 4 completed - Identifiant afficher")
+def test_predictScore():
+    #Listes des id clients 
+    Id_client = list(lecture_X_test_original()['sk_id_curr'])
+    ID = Id_client[0]
+    assert len(str(ID)) == 6 #Id de longueur 6 (à 6 chiffres )
+    ScorePredict = predictScore(ID)
+    #ScorePredict.add(ID = 100001)
+    assert ScorePredict > 0 #Score forcément positif
 
+
+def test_predictSolvabilite():
+    #Listes des id clients 
+    Id_client = list(lecture_X_test_original()['sk_id_curr'])
+    ID = Id_client[1]
+    assert len(str(ID)) == 6 #Id de longueur 6 (à 6 chiffres )
+    #Solvabilite attendu : Id = "100005"
+    SolvabilitePredict = predictSolvabilite(ID)
+    #ScorePredict.add(ID = 100005)
+    assert SolvabilitePredict == "non solvable" #Réponse attendu
+    #Cas ou le client est sovlable: 
+    ID = Id_client[0]
+    SolvabilitePredict2 = predictSolvabilite(ID)
+    assert SolvabilitePredict2 == "solvable"
+
+
+def test_predictDecision():
+    #Listes des id clients 
+    Id_client = list(lecture_X_test_original()['sk_id_curr'])
+    ID = Id_client[1]
+    assert len(str(ID)) == 6 #Id de longueur 6 (à 6 chiffres )
+    #Decision attendu : Id = "100005"
+    DecisionPredict = predictDecision(ID)
+    #ScorePredict.add(ID = 100005)
+    assert DecisionPredict == "refuser" #Réponse attendu
+    #Cas ou le crédit est accorder: 
+    ID = Id_client[0]
+    DecisionPredict2 = predictDecision(ID)
+    assert DecisionPredict2 == "accorder"
+    
+    
+    
