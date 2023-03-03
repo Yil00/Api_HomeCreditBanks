@@ -18,6 +18,7 @@ def lecture_X_test_clean():
     X_test_clean = pd.read_csv("Data/X_test_clean.csv")
     return X_test_clean
 #################################################
+#-----              TEST API            --------
 #################################################
 
 def test_predictScore():
