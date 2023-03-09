@@ -43,4 +43,4 @@ jobs:
           echo "PYTHONPATH=app" >> $GITHUB_ENV
     - name: Test with pytest
       run: |
-        python pytestP7.py
+        python pytest -v
