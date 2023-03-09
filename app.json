@@ -10,7 +10,7 @@
   "environments": {
     "test": {
       "scripts": {
-        "test": "python -m test -v PytestP7.py"
+        "test": "python -v PytestP7.py test"
       }
     }
   }
