@@ -33,4 +33,4 @@ jobs:
         #if [ -f requirements.txt ]; then pip install -e requirements.txt; fi
     - name: Test with pytest
       run: |
-         pytest 
+         pytest PytestP7.py
