@@ -35,7 +35,7 @@ jobs:
       run: |
          pytest PytestP7.py
        
-    - name: Deploy to Heroku
+    - name: Step validation before deploy to heroku
       env:
         HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
         HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
