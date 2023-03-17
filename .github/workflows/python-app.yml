@@ -25,6 +25,7 @@ jobs:
         python-version: "3.10"
         # PYTHON_PATH: Api_Projet7/app.py
         
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -34,18 +35,13 @@ jobs:
       run: |
          pytest PytestP7.py
          
-       # Cette étape est destinée à valider l'étape de déploiement vers Heroku. Nous définissons deux variables d'environnement,
-       # HEROKU_API_TOKEN et HEROKU_APP_NAME, et nous vérifions si la branche est main et si le travail a réussi avant de l'exécuter.
-       # Cette étape ajoute également une adresse distante pour le déploiement vers Heroku.
+         
+    - uses: akhileshns/heroku-deploy@v3.12.13 # This is the action
+      with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "apiprojet7" #Must be unique in Heroku
+          heroku_email: "mehmetjoob@gmail.com"
+         
+   
        
-    - name: Step validation before deploy to heroku
-      env:
-        HEROKU_API_TOKEN: ${{ secrets.HEROKU_API_TOKEN }}
-        HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
-      if: github.ref == 'refs/heads/main' && job.status == 'success'
-      run: |
-        git remote add heroku https://heroku:$HEROKU_API_TOKEN@git.heroku.com/$HEROKU_APP_NAME.git
-        
-    - name: Deploy to Heroku
-      run: |
-        git push -f heroku
+   
