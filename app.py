@@ -26,7 +26,7 @@ model_LGBM = pickle.load(open("model_LGBM.pkl", "rb"))
 #######################################################
 # Fonction Primaire : Score prédict|Decision|Solvabilité|ID
 ########################################################
-def predictScore(ID2):
+def predictScore(ID):
     all_id_client = list(lecture_X_test_original()['sk_id_curr'])
     # Prédiction de la classe 0 ou 1
     y_pred_lgbm = model_LGBM.predict(lecture_X_test_clean().drop(labels="sk_id_curr", axis=1))
